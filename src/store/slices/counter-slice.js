@@ -1,20 +1,26 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const counterInitialState = {
+const initialState = {
   interval: 1500000,
+  isRunning: false,
 };
+
 const changeInterval = (state, action) => {
-  state.interval = action.payload.interval;
+  state.interval = parseInt(action.payload);
+};
+
+const changeStatus = (state) => {
+  state.isRunning = !state.isRunning;
 };
 
 const counterSlice = createSlice({
   name: "timer",
-  initialState: counterInitialState,
+  initialState: initialState,
   reducers: {
     changeInterval,
+    changeStatus
   },
 });
 
 export const counterActions = counterSlice.actions;
-
 export default counterSlice;

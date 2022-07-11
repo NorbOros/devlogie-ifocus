@@ -1,9 +1,15 @@
-import { Fragment, useRef } from "react";
+import { useRef, useState } from "react";
 import Countdown from "react-countdown";
-import Button from "../UI/Button/Button";
+import { useDispatch, useSelector } from "react-redux";
+import { counterActions } from "../../store/slices/counter-slice";
+import CustomButton from "../UI/CustomButton/CustomButton";
+import { Card, CardActions, CardContent, Typography } from "@mui/material";
+import CustomSnackBar from "../UI/Snackbar/SnackBar";
 
 const Counter = (props) => {
   const ref = useRef();
+  const dispatch = useDispatch();
+  const counterInterval = useSelector((state) => state.counter.interval);
 
   const startHandler = () => {
     ref.current?.start();
@@ -18,31 +24,57 @@ const Counter = (props) => {
   };
 
   const changeIntervalHandler = (interval) => {
-    console.log("change interval clicked " + interval);
+    dispatch(counterActions.changeInterval(interval));
   };
 
   return (
-    <Fragment>
-      <Button
-        clickHandler={changeIntervalHandler}
-        name="Focus Time"
-        param="25"
-      />
-      <Button
-        clickHandler={changeIntervalHandler}
-        name="Short Break"
-        param="5"
-      />
-      <Button
-        clickHandler={changeIntervalHandler}
-        name="Long Break"
-        param="15"
-      />
-      <Countdown date={Date.now() + 20000} ref={ref} autoStart={false} />
-      <Button clickHandler={startHandler} name="Start" />
-      <Button clickHandler={pauseHandler} name="Pause" />
-      <Button clickHandler={stopHandler} name="Stop" />
-    </Fragment>
+    <Card>
+      <CardContent>
+        <CustomButton
+          clickHandler={changeIntervalHandler}
+          name="Focus"
+          clickHandlerParam="1500000"
+          variant="text"
+        />
+        <CustomButton
+          clickHandler={changeIntervalHandler}
+          name="Short Break"
+          clickHandlerParam="900000"
+          variant="text"
+        />
+        <CustomButton
+          clickHandler={changeIntervalHandler}
+          name="Long Break"
+          clickHandlerParam="300000"
+          variant="text"
+        />
+        <Typography variant="h2" component="div">
+          <Countdown
+            date={Date.now() + counterInterval}
+            ref={ref}
+            autoStart={false}
+          />
+        </Typography>
+      </CardContent>
+      <CardActions>
+        <CustomButton
+          clickHandler={startHandler}
+          name="Start"
+          variant="contained"
+        />
+        <CustomButton
+          clickHandler={pauseHandler}
+          name="Pause"
+          variant="contained"
+        />
+        <CustomButton
+          clickHandler={stopHandler}
+          name="Stop"
+          variant="contained"
+        />
+      </CardActions>
+      <CustomSnackBar />
+    </Card>
   );
 };
 

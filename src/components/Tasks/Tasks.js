@@ -1,19 +1,20 @@
-import { Fragment } from "react";
-import Task from "../../Task/Task";
-import Button from "../UI/Button/Button";
+import {Stack, Divider} from "@mui/material";
+import { useSelector } from "react-redux";
+import Task from "./Task/Task";
+import TaskForm from "./TaskForm/TaskForm";
 
 const Tasks = () => {
-
- const addNewTaskHandler = () => {
-    console.log('Add new task handler clicked');
- };
+  const tasks = useSelector((state) => state.task.tasks);
 
   return (
-    <Fragment>
-        <div></div>
-        <Task />
-        <Button clickHandler={addNewTaskHandler} name='Add Task'/> 
-    </Fragment>
+    <Stack spacing={2}>
+      <h2>Tasks</h2>
+      <Divider/>
+      {tasks.map((task) => (
+        <Task key={task.id} task={task} />
+      ))}
+      {/* <TaskForm/> */}
+    </Stack>
   );
 };
 
