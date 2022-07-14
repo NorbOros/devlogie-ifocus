@@ -8,8 +8,8 @@ function App() {
   return (
     <Stack spacing={2} alignItems={"center"}>
       <Header />
-      <Counter />
-      {/* <Tasks /> */}
+      {/* <Counter /> */}
+      <Tasks />
     </Stack>
   );
 }

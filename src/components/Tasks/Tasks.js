@@ -13,7 +13,7 @@ const Tasks = () => {
       {tasks.map((task) => (
         <Task key={task.id} task={task} />
       ))}
-      {/* <TaskForm/> */}
+      <TaskForm/>
     </Stack>
   );
 };

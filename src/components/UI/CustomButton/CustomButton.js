@@ -5,11 +5,13 @@ const CustomButton = ({
   name,
   clickHandlerParam,
   variant,
+  type,
 }) => {
   return (
     <Button
       variant={variant}
       onClick={(event) => clickHandler(clickHandlerParam)}
+      type={type}
     >
       {name}
     </Button>
